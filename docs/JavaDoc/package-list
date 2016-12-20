@@ -1,0 +1,8 @@
+br.ufpi.estagio.cge.controle
+br.ufpi.estagio.cge.dao
+br.ufpi.estagio.cge.dao.conexaoSGBD
+br.ufpi.estagio.cge.extrator
+br.ufpi.estagio.cge.grafico
+br.ufpi.estagio.cge.modelo
+br.ufpi.estagio.cge.teste.testeFuncional
+br.ufpi.estagio.cge.teste.testeUnitario

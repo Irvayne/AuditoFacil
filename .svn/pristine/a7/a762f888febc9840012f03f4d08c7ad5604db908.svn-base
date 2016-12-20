@@ -1,0 +1,66 @@
+package br.ufpi.estagio.cge.sistema.exportarExcel;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.springframework.web.servlet.view.document.AbstractExcelView;
+
+import br.ufpi.estagio.cge.grafico.GraficoLinha;
+
+
+
+public class InfoMediaExcel extends AbstractExcelView {
+
+	@Override
+	protected void buildExcelDocument(Map model, HSSFWorkbook workbook,
+			HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+
+		HSSFSheet excelSheet = workbook.createSheet("Informacao List");
+		setExcelHeader(excelSheet);
+		
+		ArrayList<GraficoLinha> list = (ArrayList<GraficoLinha>) model.get("list");
+		setExcelRows(excelSheet,list);
+		
+	}
+
+	public void setExcelHeader(HSSFSheet excelSheet) {
+		HSSFRow excelHeader = excelSheet.createRow(0);
+		excelHeader.createCell(0).setCellValue("cargo");
+		HSSFRow excelRow = excelSheet.createRow(2);
+		excelHeader.createCell(1).setCellValue("Janeiro");
+		excelHeader.createCell(2).setCellValue("Fevereiro");
+		excelHeader.createCell(3).setCellValue("Março");
+		excelHeader.createCell(4).setCellValue("Abril");
+		excelHeader.createCell(5).setCellValue("Maio");
+		excelHeader.createCell(6).setCellValue("junho");
+		excelHeader.createCell(7).setCellValue("Julho");
+		excelHeader.createCell(8).setCellValue("Agosto");
+		excelHeader.createCell(9).setCellValue("Setembro");
+		excelHeader.createCell(10).setCellValue("Outubro");
+		excelHeader.createCell(11).setCellValue("Novembro");
+		
+		
+	}
+	
+	public void setExcelRows(HSSFSheet excelSheet, ArrayList<GraficoLinha> list){
+		int record = 1;
+		for (GraficoLinha aux : list) {
+			HSSFRow excelRow = excelSheet.createRow(record++);
+			int i=1;
+			for (double media : aux.getData()) {
+				
+				excelRow.createCell(i).setCellValue(media);
+				i++;
+			}
+			
+		}
+	}
+}

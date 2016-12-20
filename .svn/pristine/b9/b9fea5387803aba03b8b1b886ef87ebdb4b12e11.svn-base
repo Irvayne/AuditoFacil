@@ -1,0 +1,106 @@
+package br.ufpi.estagio.cge.dao;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import br.ufpi.estagio.cge.dao.conexaoSGBD.Conexao;
+
+public class InformacoesCargoDAO {
+
+	private static void createTable() throws SQLException {
+		String criarTabela = "CREATE TABLE IF NOT EXISTS informacoesCargo (" + "id INT(5) AUTO_INCREMENT PRIMARY KEY,"
+				+ "cargo_descricao VARCHAR(50) NOT NULL," + "referencia VARCHAR(50) NOT NULL,"
+				+ "soma_liquido DECIMAL(20)," + "soma_bruto DECIMAL(20)," + "qnt_servidores DECIMAL(20))"
+				+ "ENGINE=MyISAM";
+		PreparedStatement statement = Conexao.getConnection().prepareStatement(criarTabela);
+		statement.execute();
+		statement.close();
+	}
+
+	public static ArrayList<String> quantidadeServidores(ArrayList<String> cargos, String data) throws SQLException {
+
+		Statement st = Conexao.getConnection().createStatement();
+		String cmd = "SELECT  sum(soma_liquido)/sum(qnt_servidores) as qnt, cargo_descricao FROM informacoesCargo where referencia"
+				+ " like '" + data + "%' and (cargo_descricao like '" + cargos.get(0) + "' "
+				+ "or cargo_descricao like '" + cargos.get(1) + "'" + " or cargo_descricao like '" + cargos.get(2)
+				+ "') group by cargo_descricao order by qnt";
+
+		ResultSet rs = st.executeQuery(cmd);
+
+		ArrayList<String> aux = new ArrayList();
+		while (rs.next()) {
+			aux.add(rs.getString("cargo_descricao"));
+
+		}
+		return aux;
+
+	}
+
+	public static double buscarMedia(String cargo, String referencia,String tipoSalario) throws SQLException{
+		
+		InformacoesCargoDAO.createTable();
+		String cmd = null;
+		Statement st = Conexao.getConnection().createStatement();
+		if(tipoSalario.equals("liquido")){
+		 cmd = "SELECT soma_liquido/qnt_servidores as media FROM informacoesCargo WHERE cargo_descricao like '"+cargo+"' and"
+				+ " referencia like '"+referencia+"'";
+		}
+		else{
+			 cmd = "SELECT soma_bruto/qnt_servidores as media FROM informacoesCargo WHERE cargo_descricao like '"+cargo+"' and"
+					+ " referencia like '"+referencia+"'";
+			
+		}
+		
+		ResultSet rs = st.executeQuery(cmd);
+
+		
+		while (rs.next()) {
+			 double media =  rs.getDouble("media");
+			 st.close();
+			 return media;
+		}
+		
+		st.close();
+		return -1;
+	}
+
+	public static int buscarQuantidade(String cargo, String referencia) throws SQLException {
+
+		InformacoesCargoDAO.createTable();
+
+		Statement st = Conexao.getConnection().createStatement();
+		String cmd = "SELECT qnt_servidores FROM informacoesCargo WHERE cargo_descricao like '" + cargo + "' and"
+				+ " referencia like '" + referencia + "'";
+
+		ResultSet rs = st.executeQuery(cmd);
+
+		while (rs.next()) {
+			int qnt = rs.getInt("qnt_servidores");
+			st.close();
+			return qnt;
+		}
+		st.close();
+		return -1;
+	}
+
+	public static void inserir(String cargo, String data, double somaLiquida, double somaBruta, int quantidade)
+			throws SQLException {
+
+		String inserir = "insert into informacoesCargo values (0, ?, ?, ?, ?,?)";
+
+		PreparedStatement statement = Conexao.getConnection().prepareStatement(inserir);
+
+		statement.setString(1, cargo);
+		statement.setString(2, data);
+		statement.setDouble(3, somaLiquida);
+		statement.setDouble(4, somaBruta);
+		statement.setInt(5, quantidade);
+
+		statement.execute();
+		statement.close();
+	}
+
+}

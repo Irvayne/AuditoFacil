@@ -1,0 +1,104 @@
+package br.ufpi.estagio.cge.dao;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import br.ufpi.estagio.cge.dao.conexaoSGBD.Conexao;
+
+public class InformacoesOrgaoDAO {
+
+	private static void createTable() throws SQLException{
+		String criarTabela = "CREATE TABLE IF NOT EXISTS informacoesOrgao ("
+				+ "id INT(5) AUTO_INCREMENT PRIMARY KEY,"
+				+ "orgao_descricao VARCHAR(50) NOT NULL,"
+				+ "referencia VARCHAR(50) NOT NULL,"
+				+ "soma_salarial DECIMAL(20),"
+				+ "qnt_servidores DECIMAL(20))"
+				+ "ENGINE=MyISAM";
+		PreparedStatement statement = Conexao.getConnection().prepareStatement(criarTabela);
+		statement.execute();
+		statement.close();
+	}
+
+	public static ArrayList<String> listarOrgaosDecrescente(String data) throws SQLException{
+
+		Statement st = Conexao.getConnection().createStatement();
+		String cmd = "SELECT orgao_descricao, soma_salarial/qnt_servidores as media "
+				+ "FROM informacoesOrgao WHERE referencia like '"+data+"' order by media";
+
+		ResultSet rs = st.executeQuery(cmd);
+
+		ArrayList<String> aux = new ArrayList();
+		while (rs.next()) {
+			aux.add(rs.getString("orgao_descricao"));
+
+		}
+		return aux;
+
+	}
+
+	public static double buscarMedia(String orgao, String referencia) throws SQLException{
+
+		InformacoesOrgaoDAO.createTable();
+
+		Statement st = Conexao.getConnection().createStatement();
+		String cmd = "SELECT soma_salarial,qnt_servidores FROM informacoesOrgao WHERE orgao_descricao like '"+orgao+"' and"
+				+ " referencia like '"+referencia+"'";
+
+
+		ResultSet rs = st.executeQuery(cmd);
+
+
+		while (rs.next()) {
+			double media =  rs.getDouble("soma_salarial")/rs.getInt("qnt_servidores");
+			st.close();
+			return media;
+		}
+
+		st.close();
+		return -1;
+	}
+
+	public static int buscarQuantidade(String orgao, String referencia) throws SQLException{
+
+		InformacoesOrgaoDAO.createTable();
+
+		Statement st = Conexao.getConnection().createStatement();
+		String cmd = "SELECT qnt_servidores FROM informacoesOrgao WHERE orgao_descricao like '"+orgao+"' and"
+				+ " referencia like '"+referencia+"'";
+
+
+		ResultSet rs = st.executeQuery(cmd);
+
+
+		while (rs.next()) {
+			int qnt =  rs.getInt("qnt_servidores");
+			st.close();
+			return qnt;
+		}
+		st.close();
+		return -1;
+	}
+
+	public static void inserir(String orgao, String data, double soma, int quantidade) throws SQLException {
+
+		String inserir = "insert into informacoesOrgao values (0, ?, ?, ?, ?)";
+
+		PreparedStatement statement = Conexao.getConnection().prepareStatement(inserir);
+
+		statement.setString(1, orgao);
+		statement.setString(2, data);
+		statement.setDouble(3, soma);
+		statement.setInt(4, quantidade);
+
+
+		statement.execute();
+		statement.close();
+	}
+
+
+
+}

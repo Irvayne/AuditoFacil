@@ -1,0 +1,195 @@
+package br.ufpi.estagio.cge.controle;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.google.gson.Gson;
+
+import br.ufpi.estagio.cge.dao.InformacoesCargoDAO;
+import br.ufpi.estagio.cge.dao.InformacoesCategoriaDAO;
+import br.ufpi.estagio.cge.dao.InformacoesOrgaoDAO;
+import br.ufpi.estagio.cge.extrator.AlgoritmoBusca;
+import br.ufpi.estagio.cge.grafico.Dados;
+import br.ufpi.estagio.cge.grafico.GraficoDispersao;
+import br.ufpi.estagio.cge.grafico.GraficoCombinacao;
+import br.ufpi.estagio.cge.grafico.GraficoLinha;
+import br.ufpi.estagio.cge.grafico.GraficoLinhaMedia;
+import br.ufpi.estagio.cge.grafico.GraficoPizza;
+
+
+
+@RestController
+public class AjaxController {
+
+	@RequestMapping(value = "/listarCargos", method = RequestMethod.POST)
+	public ArrayList<String> listarCargos() throws IOException{
+
+		try {
+			return AlgoritmoBusca.listarCargos();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
+
+	}
+	
+	@RequestMapping(value = "/listarCategorias", method = RequestMethod.POST)
+	public ArrayList<String> listarCategorias() throws IOException{
+
+		try {
+			return AlgoritmoBusca.listarCategorias();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
+
+	}
+	
+	@RequestMapping(value = "/listarOrgaos", method = RequestMethod.POST)
+	public ArrayList<String> listarOrgaos() throws IOException{
+
+		try {
+			return AlgoritmoBusca.listarOrgaos();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
+
+	}
+
+	@RequestMapping(value = "/mediaSalarial", method = RequestMethod.POST)
+	public String graficoMediaSalarial(@RequestBody Dados dados) throws IOException{
+
+				try {
+					ArrayList<GraficoLinha> g =  AlgoritmoBusca.mediaSalarial(dados);
+					Gson json = new Gson();
+					String servidores = json.toJson(g);
+					return servidores;
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			return null;
+		
+	}
+	@RequestMapping(value = "/gastoSalarial", method = RequestMethod.POST)
+	public String gastoSalarial(@RequestBody Dados dados) throws IOException{
+
+				try {
+					ArrayList<GraficoPizza> g =  AlgoritmoBusca.gastoSalarial(dados);
+					Gson json = new Gson();
+					String gasto = json.toJson(g);
+					return gasto;
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			return null;
+		
+	}
+
+	
+
+	@RequestMapping(value = "/mediaQnt", method = RequestMethod.POST)
+	public String mediaSalarialQntServidores(@RequestBody Dados dados) throws IOException{
+		
+		
+
+		try {
+			return AlgoritmoBusca.mediaSalarialQntDeServidores(dados);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
+
+	}
+	
+	@RequestMapping(value = "/piramide", method = RequestMethod.POST)
+	public String piramideHierarquica(@RequestBody Dados dados) throws IOException{
+		
+		
+
+		try {
+			String resp = AlgoritmoBusca.piramideHierarquica(dados);
+			return resp;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
+
+	}
+	@RequestMapping(value = "/faixaEtaria", method = RequestMethod.POST)
+	public String faixaEtaria(@RequestBody Dados dados) throws IOException{
+		
+		
+
+		try {
+			String resp = AlgoritmoBusca.faixaEtaria((dados));
+			return resp;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
+
+	}
+
+	
+	@RequestMapping(value = "/dispersao", method = RequestMethod.POST)
+	public String graficoDispersao(@RequestBody Dados dados) throws IOException{
+	
+
+		try {
+			ArrayList<GraficoDispersao> graf =  AlgoritmoBusca.graficoDispersaoSalarioPorTempo(dados);
+			Gson json = new Gson();
+			String servidores = json.toJson(graf);
+			
+			
+			return "["+servidores.substring(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
+
+	}
+	
+	@RequestMapping(value = "/detalheServidor", method = RequestMethod.POST)
+	public String detalheServidor(@RequestBody Dados dados) throws IOException, SQLException{
+		
+		
+		return AlgoritmoBusca.informacaoServidor(dados);
+
+	}
+	
+//	@RequestMapping(value = "/analiseServidorCargo", method = RequestMethod.POST)
+//	public String analiseServidorCargo(@RequestBody Dados dados) throws IOException, SQLException{
+//		
+//		
+//		return AlgoritmoBusca.analiseServidorCargo(dados);
+//
+//	}
+	
+}

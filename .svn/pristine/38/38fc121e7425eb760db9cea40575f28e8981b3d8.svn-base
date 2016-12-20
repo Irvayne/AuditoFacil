@@ -1,0 +1,59 @@
+package br.ufpi.estagio.cge.dao;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import br.ufpi.estagio.cge.dao.conexaoSGBD.Conexao;
+import br.ufpi.estagio.cge.modelo.Movimento;
+
+public class MovimentoDAO {
+
+	public static List<Movimento> listarMovimento(String matricula) throws SQLException{
+		
+		List<Movimento> movimentos = new ArrayList<>();
+	
+			Statement st = Conexao.getConnection().createStatement();
+		String cmd;
+		cmd = "SELECT referencia, valor, tipo  FROM movimento where matricula like '"+matricula+"' order by referencia";
+		ResultSet rs = st.executeQuery(cmd);
+		while(rs.next()){
+			Movimento movimento = new Movimento();
+			movimento.setReferencia(rs.getString("referencia"));
+			movimento.setValor(rs.getDouble("valor"));
+			movimento.setTipo(rs.getString("tipo"));
+			
+			movimentos.add(movimento);
+		
+		
+		} 
+		st.close();
+		return movimentos;
+	}
+	
+	public static List<Movimento> listarMovimento(String matricula, String referencia) throws SQLException{
+		
+		List<Movimento> movimentos = new ArrayList<>();
+	
+			Statement st = Conexao.getConnection().createStatement();
+		String cmd;
+		cmd = "SELECT referencia, valor, tipo, financeiro_descricao  FROM movimento where matricula like '"+matricula.substring(0, matricula.length()-1)+"' "
+				+ "and referencia like '"+referencia+"'";
+		ResultSet rs = st.executeQuery(cmd);
+		while(rs.next()){
+			Movimento movimento = new Movimento();
+			movimento.setReferencia(rs.getString("referencia"));
+			movimento.setValor(rs.getDouble("valor"));
+			movimento.setTipo(rs.getString("tipo"));
+			movimento.setFinanceiro_descricao(rs.getString("financeiro_descricao"));
+			
+			movimentos.add(movimento);
+		
+		
+		} 
+		st.close();
+		return movimentos;
+	}
+}

@@ -1,0 +1,247 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Highmaps Example</title>
+        
+        <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous"></script>
+
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <style type="text/css">
+            #container {
+                height: 500px; 
+                min-width: 310px; 
+                max-width: 800px; 
+                margin: 0 auto; 
+            }
+            .loading {
+                margin-top: 10em;
+                text-align: center;
+                color: gray;
+            }
+        </style>
+        <script type="text/javascript">
+            $(function () {
+
+                // Prepare demo data
+                var data = [{ 'hc-key': 'br-sp', value: 82 },
+                    { 'hc-key': 'br-ma', value: 173},
+                    { 'hc-key': 'br-pa', value: 2 },
+                    { 'hc-key': 'br-sc', value: 0 },
+                    { 'hc-key': 'br-ba', value: 10 },
+                    { 'hc-key': 'br-ap', value: 0 },
+                    { 'hc-key': 'br-ms', value: 0 },
+                    { 'hc-key': 'br-mg', value: 14 },
+                    { 'hc-key': 'br-go', value: 15 },
+                    { 'hc-key': 'br-rs', value: 1 },
+                    { 'hc-key': 'br-to', value: 3 },
+                    { 'hc-key': 'br-pi', value: 109593 },
+                    { 'hc-key': 'br-al', value: 2 },
+                    { 'hc-key': 'br-pb', value: 5 },
+                    { 'hc-key': 'br-ce', value: 89 },
+                    { 'hc-key': 'br-se', value: 2 },
+                    { 'hc-key': 'br-rr', value: 3 },
+                    { 'hc-key': 'br-pe', value: 34 },
+                    { 'hc-key': 'br-pr', value: 1 },
+                    { 'hc-key': 'br-es', value: 4 },
+                    { 'hc-key': 'br-rj', value: 43 },
+                    { 'hc-key': 'br-rn', value: 4 },
+                    { 'hc-key': 'br-am', value: 5 },
+                    { 'hc-key': 'br-mt', value: 4 },
+                    { 'hc-key': 'br-df', value: 143 },
+                    { 'hc-key': 'br-ac', value: 0 },
+                    { 'hc-key': 'br-ro', value: 3 }];
+
+                    
+                // Initiate the chart
+                $('#container').highcharts('Map', {
+                    
+                    title : {
+                        text : 'Mapa Demográfico'
+                    },
+
+                    subtitle : {
+                        text : 'Mapa Demografico dos Sevidores Públicos Estaduais do Piauí'
+                    },
+
+                    mapNavigation: {
+                        enabled: false,
+                        buttonOptions: {
+                            verticalAlign: 'bottom'
+                        }
+                    },
+
+                    colorAxis: {
+                        min: 0
+                    },
+
+                    series : [{
+                        data : data,
+                        mapData: Highcharts.maps['countries/br/br-all'],
+                        joinBy: 'hc-key',
+                        name: 'Quantidade',
+                        states: {
+                            hover: {
+                                color: '#BADA55'
+                            }
+                        },
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.name}'
+                        }
+                    }]
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+        <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/mapdata/countries/br/br-all.js"></script>
+<div class=col-lg-9
+		style="width: 971px; height: 2500px; margin-left: 150px; background: #F6F6F6">
+
+
+
+		<div class=row style="width: 971px; height: 200px">
+			<img src="http://www.domextechnical.com/images/data-mining.jpg"
+				style="width: 971px; height: 200px">
+		</div>
+		<div class=row>
+
+			<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+						aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="/DataMiningCGE/">Inicio</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse"
+					id="bs-example-navbar-collapse-1">
+
+					</ul>
+					<form class="navbar-form navbar-right">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Search">
+						</div>
+					</form>
+
+				</div>
+				<!-- /.navbar-collapse -->
+			</div>
+			<!-- /.container-fluid --> </nav>
+		</div>
+		<div class=row>
+			<div class=col-lg-3>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h5 style="text-align: center">
+							<b>Consultas Avançadas</b>
+						</h5>
+					</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<div class="list-group text-center">
+
+							<a class="list-group-item"
+								href="/DataMiningCGE/mediaSalarial">Média Salarial </a>
+						</div>
+						
+						
+						
+	<!-- -------------------------------------------------Feature 2 ---------------------------------------------- -->					
+						<div class="list-group text-center">
+
+							<a class="list-group-item"
+								href="/DataMiningCGE/piramideHierarquica">Níveis Hierárquicos  </a>
+						</div>
+
+						
+	<!-- -------------------------------------------------Feature 4 ---------------------------------------------- -->					
+						<div class="list-group text-center">
+
+							<a class="list-group-item"
+								href="/DataMiningCGE/dispersaoServidores">Dispersão dos Salários Individuais</a>
+						</div>
+						
+											
+
+	<!-- -------------------------------------------------Feature 5 ---------------------------------------------- -->					
+						<div class="list-group text-center">
+
+							<a class="list-group-item"
+								href="/DataMiningCGE/mediaSalarialQntServidores">Media Salarial e Quantidade de Servidores  </a>
+						</div>
+			<!-- -------------------------------------------------Feature 6---------------------------------------------- -->					
+						<div class="list-group text-center">
+
+							<a class="list-group-item"
+								href="/DataMiningCGE/mapaDemografico">Mapa Demográfico  </a>
+						</div>
+									
+			<!-- -------------------------------------------------Feature 7---------------------------------------------- -->					
+						<div class="list-group text-center">
+
+							<a class="list-group-item"
+								href="/DataMiningCGE/faixa">Faixa Etária dos Servidores  </a>
+						</div>
+										
+
+					</div>
+				</div>
+			</div>
+
+			<div class=col-lg-9>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<h4 style="text-align: center">
+							<b>Mapa Demográfico </b>
+						</h4>
+						<hr>
+						<h5 style="text-align: center">
+							Nesta consulta é exibindo um mapa navegável. 
+							 
+						</h5>
+						<hr>
+						
+						
+					</div>
+					<div class="panel-body">
+					
+					<div id="container"></div>
+				</div>
+				
+				
+			</div>
+		</div>
+	</div>
+	</div>
+
+
+    </body>
+</html>
+

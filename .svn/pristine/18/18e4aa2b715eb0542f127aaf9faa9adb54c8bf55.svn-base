@@ -1,0 +1,95 @@
+package br.ufpi.estagio.cge.dao;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import br.ufpi.estagio.cge.dao.conexaoSGBD.Conexao;
+import br.ufpi.estagio.cge.grafico.GraficoLinha;
+import br.ufpi.estagio.cge.modelo.Servidor;
+
+/**
+ * Classe reponsavel por realizar todo o processo de iteracao do servidor com o
+ * banco de dados
+ * 
+ * @author irvaynematheus
+ *
+ */
+public class ServidorDAO {
+
+	public static List<GraficoLinha> listarMediaSalarialPorServidor(String matricula, ArrayList<String> datas)
+			throws SQLException {
+		GraficoLinha graficoBruto = new GraficoLinha();
+		GraficoLinha graficoLiquido = new GraficoLinha();
+		graficoBruto.setData(new ArrayList<Double>());
+		graficoLiquido.setData(new ArrayList<Double>());
+
+		Statement st = Conexao.getConnection().createStatement();
+
+		for (String data : datas) {
+
+			/*
+			 * No primeiro select, ele soma o salario de todos os funcionario do
+			 * mes e do cargo especificado que sejam do tipo V, ou seja, o
+			 * salario eh um vencimento. No segundo select, ele soma para o tipo
+			 * de salario D. Depois ele subtrai esses dois resultados. Logo apos
+			 * isso, ele calcula a quantidade de funcinarios e divide o
+			 * resultado da subtracao do primeiro select com o segundo select
+			 * por essa qunatidade e entao e encontrado a media.
+			 */
+			String cmd = "( SELECT v as bruto, (v-d) as liquido from "
+					+ " (SELECT s1.data_admissao,m1.matricula,m1.referencia,sum(valor) as v "
+					+ " FROM infofolha_cge.servidor s1 inner join infofolha_cge.movimento m1"
+					+ " on s1.matricula = m1.matricula and s1.referencia = m1.referencia and s1.referencia"
+					+ " like '"+data+"' and m1.tipo like 'V' and s1.matricula like '"+matricula+"'  group by m1.matricula,m1.tipo"
+					+ " ) pesq1" + " inner join" + " (SELECT m1.matricula,m1.referencia,sum(valor) as d"
+					+ " FROM infofolha_cge.servidor s1 inner join infofolha_cge.movimento m1"
+					+ " on s1.matricula = m1.matricula and s1.referencia = m1.referencia and s1.referencia"
+					+ " like '"+data+"' and m1.tipo like 'D' and s1.matricula like '"+matricula+"' group by m1.matricula,m1.tipo"
+					+ " ) pesq2 on pesq1.matricula=pesq2.matricula)  ";
+
+			ResultSet rs = st.executeQuery(cmd);
+
+			if (rs.next()) {
+				double bruto = rs.getDouble("bruto");
+				double liquido = rs.getInt("liquido");
+
+				graficoBruto.getData().add(bruto);
+				graficoLiquido.getData().add(liquido);
+
+			}
+
+		}
+		st.close();
+		List<GraficoLinha> g = new ArrayList<>();
+		g.add(graficoLiquido);
+		g.add(graficoBruto);
+		return g;
+	}
+
+	public static Servidor buscar(String matricula) throws SQLException {
+		Statement st = Conexao.getConnection().createStatement();
+
+		String aux = "SELECT distinct(cpf) as cpf, nome, matricula, cargo_descricao, "
+				+ "orgao_descricao, categoria, data_nascimento, data_admissao, cidade_descricao "
+				+ "FROM servidor where matricula like '" + matricula.substring(0, matricula.length() - 1) + "'";
+
+		ResultSet rs = st.executeQuery(aux);
+
+		Servidor servidor = new Servidor();
+		if (rs.next()) {
+			servidor.setNome(rs.getString("nome"));
+			servidor.setCpf(rs.getString("cpf"));
+			servidor.setMatricula(rs.getString("matricula"));
+			servidor.setCargo_descricao(rs.getString("cargo_descricao"));
+			servidor.setOrgao_descricao(rs.getString("orgao_descricao"));
+			servidor.setData_nascimento(rs.getString("data_nascimento"));
+			servidor.setData_admissao(rs.getString("data_admissao"));
+			servidor.setCidade_descicao(rs.getString("cidade_descricao"));
+			servidor.setCategoria(rs.getString("categoria"));
+		}
+		return servidor;
+	}
+}

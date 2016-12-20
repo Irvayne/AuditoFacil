@@ -1,0 +1,65 @@
+package br.ufpi.estagio.cge.controle;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+@Controller
+public class HomeController {
+	
+	
+	
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String index() {
+		
+		return "index";
+	}
+	
+	@RequestMapping(value = "/mediaSalarial", method = RequestMethod.GET)
+	public String mediaSalarial() {
+		
+		return "mediaSalarial";
+	}
+	
+	@RequestMapping(value = "/piramideHierarquica", method = RequestMethod.GET)
+	public String piramideHierarquica() {
+		
+		return "piramideHierarquica";
+	}
+	
+	@RequestMapping(value = "/dispersaoServidores", method = RequestMethod.GET)
+	public String curvaPadrao() {
+		
+		return "dispersaoServidores";
+	}
+	@RequestMapping(value = "/mediaSalarialQntServidores", method = RequestMethod.GET)
+	public String mediaSalarialQntServidores() {
+		
+		return "mediaSalarialQntServidores";
+	}
+	@RequestMapping(value = "/mapaDemografico", method = RequestMethod.GET)
+	public String mapaDemografico() {
+		
+		return "mapaDemografico";
+	}
+	@RequestMapping(value = "/faixa", method = RequestMethod.GET)
+	public String faixaEtaria() {
+		
+		return "faixaEtaria";
+	}
+	@RequestMapping(value = "/porcentagemGasto", method = RequestMethod.GET)
+	public String procentagemGasto() {
+		
+		return "porcentagemGasto";
+	}
+	
+	
+	
+		
+		
+	
+	
+	
+	
+	
+}

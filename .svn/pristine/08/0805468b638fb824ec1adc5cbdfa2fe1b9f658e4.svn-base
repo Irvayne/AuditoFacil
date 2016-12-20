@@ -1,0 +1,295 @@
+package br.ufpi.estagio.cge.controle;
+
+import java.lang.reflect.Type;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.google.gson.Gson;
+
+import antlr.collections.List;
+import br.ufpi.estagio.cge.extrator.AlgoritmoBusca;
+import br.ufpi.estagio.cge.grafico.Dados;
+import br.ufpi.estagio.cge.grafico.GraficoDispersao;
+import br.ufpi.estagio.cge.grafico.GraficoLinha;
+import br.ufpi.estagio.cge.grafico.GraficoPizza;
+
+
+/**
+ * Classe responsavel por responder as requisicoes via Ajax
+ * 
+ * @author Irvayne Matheus
+ *
+ */
+@RestController
+public class AjaxController {
+	
+	/**
+	 * Metodo que retorna todos os cargos 
+	 * @return - uma lista com todos os Cargos
+	 */
+	@RequestMapping(value = "/listarCargos", method = RequestMethod.POST)
+	public ArrayList<String> listarCargos(){
+
+		try {
+			return AlgoritmoBusca.listarCargos();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
+
+	}
+	/**
+	 * Metodo que lista todas as Categorias
+	 * @return - uma lista com todas as categorias
+	 */
+	@RequestMapping(value = "/listarCategorias", method = RequestMethod.POST)
+	public ArrayList<String> listarCategorias(){
+
+		try {
+			return AlgoritmoBusca.listarCategorias();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
+
+	}
+	/**
+	 * Metodo que lista todos os Orgaos
+	 * @return - uma lista com todos os orgaos
+	 */
+	@RequestMapping(value = "/listarOrgaos", method = RequestMethod.POST)
+	public ArrayList<String> listarOrgaos(){
+
+		try {
+			return AlgoritmoBusca.listarOrgaos();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+	/**
+	 * Metodo que exibe o grafico de Media Salarial
+	 * @param dados - informacoes vindas da view
+	 * @return - grafico linha com a media salarial
+	 */
+	@RequestMapping(value = "/mediaSalarial", method = RequestMethod.POST)
+	public String graficoMediaSalarial(@RequestBody Dados dados){
+
+				try {
+					ArrayList<GraficoLinha> g =  AlgoritmoBusca.mediaSalarial(dados);
+					Gson json = new Gson();
+					String servidores = json.toJson(g);
+					return servidores;
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			return null;
+		
+	}
+	/**
+	 * Metodo que exibe os gastos salariais mensal dos cargos/categorias/orgaos
+	 * @param dados - informacoes vindas da view
+	 * @return - grafico pizza com a distribuicao dos gastos salariais
+	 */
+	@RequestMapping(value = "/gastoSalarial", method = RequestMethod.POST)
+	public String gastoSalarial(@RequestBody Dados dados){
+
+				try {
+					ArrayList<GraficoPizza> g =  AlgoritmoBusca.gastoSalarial(dados);
+					Gson json = new Gson();
+					String gasto = json.toJson(g);
+					return gasto;
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			return null;
+		
+	}
+	/**
+	 * Metodo que exibe a media e a qnt de servidores por cargo/orgao/categoria dentro de um ano
+	 * @param dados - informacoes vindas da view
+	 * @return - grafico coluna com a media, um grafico linha com a media das opcoes selecionadas e 
+	 * um grafico pizza com a qnt de servidores por opcao
+	 */
+	@RequestMapping(value = "/mediaQnt", method = RequestMethod.POST)
+	public String mediaSalarialQntServidores(@RequestBody Dados dados){
+		
+		try {
+			return AlgoritmoBusca.mediaSalarialQntDeServidores(dados);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
+
+	}
+	/**
+	 * Metodo que exibe uma grafico piramide com a expessura proporcional a qnt de servidores
+	 *  e do topo para a base ordenado por maior salario
+	 * @param dados - Informacoes vindas da view
+	 * @return - grafico piramidal com as categorias/orgaos 
+	 */
+	@RequestMapping(value = "/piramide", method = RequestMethod.POST)
+	public String piramideHierarquica(@RequestBody Dados dados){
+		
+		try {
+			return  AlgoritmoBusca.piramideHierarquica(dados);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
+
+	}
+	
+	/**
+	 * Metodo que exibe a faixa etaria dos servidores em uma determinada opcao escolhida
+	 * @param dados - Informacoes vindas da view
+	 * @return - grafico coluna com a faixa etaria dos servidores
+	 */
+	@RequestMapping(value = "/faixaEtaria", method = RequestMethod.POST)
+	public String faixaEtaria(@RequestBody Dados dados){
+		
+		try {
+			return AlgoritmoBusca.faixaEtaria((dados));
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
+
+	}
+
+	/**
+	 * Metodo para gerar um grafico de dispersao dos servidores
+	 *  de um determinado cargo/orgao/categoria em um periodo de tempo
+	 * @param dados - Informacoes vindas na view
+	 * @return - grafico de dispersao dos servidores
+	 */
+	@RequestMapping(value = "/dispersao", method = RequestMethod.POST)
+	public String graficoDispersao(@RequestBody Dados dados){
+
+		try {
+			ArrayList<GraficoDispersao> graf =  AlgoritmoBusca.graficoDispersaoSalarioPorTempo(dados);
+			Gson json = new Gson();
+			String servidores = json.toJson(graf);
+			return "["+servidores.substring(1);
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
+
+	}
+	
+	/**
+	 * Metodo que exibe os movimentos detalhados dos servidores
+	 * @param dados - Informacoes vindas na view
+	 * @return - os movimentos de um determinado servidor
+	 */
+	@RequestMapping(value = "/detalheServidor", method = RequestMethod.POST)
+	public String detalheServidor(@RequestBody Dados dados){
+		
+		try {
+			return AlgoritmoBusca.informacaoServidor(dados);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+	/**
+	 * Metodo que detalha os movimentos de um determinado ponto do grafico de media
+	 * @param dados - Informacoes vindas da view
+	 * @return - os movimentos que causaram o valor da media
+	 */
+	@RequestMapping(value = "/detalheMedia", method = RequestMethod.POST)
+	public String detalheMedia(@RequestBody Dados dados){
+		
+		try {
+			return AlgoritmoBusca.informacaoMedia(dados);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+	/**
+	 * Metodo para exibir os gastos brutos dos orgao/categorias
+	 * @param dados - Informacoes vindas da view
+	 * @return - grafico pizza com a distribuicao dos gastos 
+	 */
+	@RequestMapping(value = "/distribuicaoGasto", method = RequestMethod.POST)
+	public String distribuicaoGasto(@RequestBody Dados dados){
+		
+		try {
+			return AlgoritmoBusca.porcentagemGasto(dados);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+	/**
+	 * Metodo que gera excel para exportacao
+	 * @param request - dados vindos da view
+	 * @return - excel gerado
+	 * @throws SQLException
+	 */
+	@RequestMapping(value = "/download", method = RequestMethod.POST)
+	public ModelAndView getExcel( HttpServletRequest request) throws SQLException {
+		String cargo = request.getParameter("cargo");
+		String referencia = request.getParameter("referencia");
+		
+		Dados dados = new Dados();
+		dados.setInput1(cargo);
+		dados.setReferencia(referencia);
+		dados.setTipo("cargo");
+		dados.setTipoSalario("bruto");
+		
+		dados.setInput2("");
+		dados.setInput3("");
+		dados.setInput4("");
+		dados.setInput5("");
+		dados.setInput6("");
+		dados.setInput7("");
+		dados.setInput8("");
+		dados.setInput9("");
+		
+		ArrayList<GraficoDispersao> grafico = AlgoritmoBusca.graficoDispersaoSalarioPorTempo(dados);
+		
+		
+		return new ModelAndView("InformacaoDispersaoExcel", "list", grafico);
+	}
+	
+	
+}

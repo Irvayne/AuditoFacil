@@ -1,0 +1,169 @@
+package br.ufpi.estagio.cge.dao;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import br.ufpi.estagio.cge.dao.conexaoSGBD.Conexao;
+
+/**
+ * Classe que realiza a manipulacao da tabela InformacoesCargo
+ * @author Irvayne Matheus
+ *
+ */
+public class InformacoesCargoDAO {
+	/**
+	 * Metodo que cria a table informacoesCargo
+	 * @throws SQLException
+	 */
+	private static void createTable() throws SQLException {
+		String criarTabela = "CREATE TABLE IF NOT EXISTS informacoesCargo (" + "id INT(5) AUTO_INCREMENT PRIMARY KEY,"
+				+ "cargo_descricao VARCHAR(50) NOT NULL," + "referencia VARCHAR(50) NOT NULL,"
+				+ "soma_liquido DECIMAL(20)," + "soma_bruto DECIMAL(20)," + "qnt_servidores DECIMAL(20),"
+				+ "categoria DECIMAL(20)," + "orgao VARCHAR(20))" + "ENGINE=MyISAM";
+		PreparedStatement statement = Conexao.getConnection().prepareStatement(criarTabela);
+		statement.execute();
+		statement.close();
+	}
+	/**metodo para inserir um novo registro na tabela infomacoesCargo
+	 * 
+	 * @param cargo - descricao do cargo
+	 * @param data - data referente
+	 * @param somaliquido - salario liquido
+	 * @param somaBruta - salario bruto
+	 * @param quantidade - qnt de servidores
+	 * @param id - id da categoria
+	 * @param orgao - id do orgao
+	 * @throws SQLException
+	 */
+	public static void inserir(String cargo, String data, double somaliquido, double somaBruta, int quantidade, int id,
+			String orgao) throws SQLException {
+
+		String inserir = "insert into informacoesCargo values (0, ?, ?, ?, ?,?,?,?)";
+
+		PreparedStatement statement = Conexao.getConnection().prepareStatement(inserir);
+
+		statement.setString(1, cargo);
+		statement.setString(2, data);
+		statement.setDouble(3, somaliquido);
+		statement.setDouble(4, somaBruta);
+		statement.setInt(5, quantidade);
+		statement.setInt(6, id);
+		statement.setString(7, orgao);
+		statement.execute();
+		statement.close();
+	}
+	/**
+	 * Metodo para buscar a media salarial de um cargo
+	 * @param cargo - cargo a ser pesquisado
+	 * @param referencia - filtro da data para ser pesquisado
+	 * @param tipoSalario - tipo do salario
+	 * @param categoria - categoria filtrada
+	 * @param orgao - orgao filtrado
+	 * @return - media salarial desse combinacao
+	 * @throws SQLException
+	 */
+	public static double buscarMedia(String cargo, String referencia, String tipoSalario, String categoria,
+			String orgao) throws SQLException {
+
+		InformacoesCargoDAO.createTable();
+		String cmd = null;
+		Statement st = Conexao.getConnection().createStatement();
+		if (tipoSalario.equals("liquido")) {
+			tipoSalario = "soma_liquido";
+		} else {
+			tipoSalario = "soma_bruto";
+		}
+		if (categoria.equals("") && orgao.equals("")) {
+			cmd = "SELECT " + tipoSalario
+					+ "/qnt_servidores as media FROM informacoesCargo WHERE cargo_descricao like '" + cargo + "' and"
+					+ " referencia like '" + referencia + "' and categoria = " + -1
+					+ "  and orgao like '" + -1 + "'";
+
+		} else if (categoria.equals("") && (!orgao.equals(""))) {
+			cmd = "SELECT " + tipoSalario
+					+ "/qnt_servidores as media FROM informacoesCargo WHERE cargo_descricao like '" + cargo + "' and"
+					+ " referencia like '" + referencia + "' and categoria = " + -1
+					+ "  and orgao like '" + OrgaoDAO.buscarId(orgao) + "'";
+
+		} else if ((!categoria.equals("")) && orgao.equals("")) {
+			cmd = "SELECT " + tipoSalario
+					+ "/qnt_servidores as media FROM informacoesCargo WHERE cargo_descricao like '" + cargo + "' and"
+					+ " referencia like '" + referencia + "' and categoria = " + CategoriaDAO.buscarId(categoria)
+					+ "  and orgao like '" + -1 + "'";
+		} else if ((!categoria.equals("")) && (!orgao.equals(""))) {
+			cmd = "SELECT " + tipoSalario
+					+ "/qnt_servidores as media FROM informacoesCargo WHERE cargo_descricao like '" + cargo + "' and"
+					+ " referencia like '" + referencia + "' and categoria = " + CategoriaDAO.buscarId(categoria)
+					+ "  and orgao like '" + OrgaoDAO.buscarId(orgao) + "'";
+
+		}
+
+		ResultSet rs = st.executeQuery(cmd);
+
+		while (rs.next()) {
+			double media = rs.getDouble("media");
+			st.close();
+			return media;
+		}
+
+		st.close();
+		return -1;
+	}
+	/**
+	 * Metodo para buscar a qnd de servidores 
+	 * @param cargo - cargo a ser pesquisado
+	 * @param referencia - data filtrada
+	 * @return - a qnt de servidores
+	 * @throws SQLException
+	 */
+	public static int buscarQuantidade(String cargo, String referencia) throws SQLException {
+
+		InformacoesCargoDAO.createTable();
+
+		Statement st = Conexao.getConnection().createStatement();
+		String cmd = "SELECT qnt_servidores FROM informacoesCargo WHERE cargo_descricao like '" + cargo + "' and"
+				+ " referencia like '" + referencia + "'";
+
+		ResultSet rs = st.executeQuery(cmd);
+
+		while (rs.next()) {
+			int qnt = rs.getInt("qnt_servidores");
+			st.close();
+			return qnt;
+		}
+		st.close();
+		return -1;
+	}
+	
+	/**
+	 * Metodo que busca o gasto salarial 
+	 * @param cargo - cargo a ser buscado
+	 * @param referencia - data
+	 * @return - o valor do gasto
+	 * @throws SQLException
+	 */
+	public static double gastoSalarial(String cargo, String referencia) throws SQLException {
+		InformacoesCargoDAO.createTable();
+
+		Statement st = Conexao.getConnection().createStatement();
+		String cmd = "SELECT sum(v) as valor FROM" + " (SELECT sum(m1.valor) as v FROM servidor s1"
+				+ " inner join movimento m1 on s1.matricula = m1.matricula "
+				+ " and s1.referencia = m1.referencia and s1.referencia like '" + referencia + "%'"
+				+ " and m1.tipo like 'V' and s1.cargo_descricao like '" + cargo + "'  "
+				+ " group by s1.referencia order by s1.referencia) as soma";
+
+		ResultSet rs = st.executeQuery(cmd);
+
+		while (rs.next()) {
+			double valor = rs.getDouble("valor");
+			st.close();
+			return valor;
+		}
+		st.close();
+		return 0;
+
+	}
+
+}
