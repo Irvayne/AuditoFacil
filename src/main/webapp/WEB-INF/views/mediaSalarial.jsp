@@ -1,12 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Cloudset</title>
+
+
+<script type="text/javascript" src="resources/js/cufon-yui.js"></script>
+<script type="text/javascript" src="resources/js/droid_sans_400-droid_sans_700.font.js"></script>
+<script type="text/javascript" src="resources/js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="resources/js/script.js"></script>
+<script type="text/javascript" src="resources/js/coin-slider.min.js"></script>
+
 <link rel="stylesheet"
 	href="https://cdn.rawgit.com/LeaVerou/awesomplete/gh-pages/awesomplete.css">
 <script
@@ -15,11 +20,14 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/highcharts-more.js"></script>
+
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 	crossorigin="anonymous">
+
+
 
 <!-- Optional theme -->
 <link rel="stylesheet"
@@ -32,132 +40,85 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
+	
+	<link href="resources/css/style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="resources/css/coin-slider.css" />
 </head>
 <body>
-	<div class=col-lg-9
-		style="width: 971px; height: 2500px; margin-left: 150px; background: #F6F6F6">
-
-
-
-		<div class=row style="width: 971px; height: 200px">
-			<img src="http://www.domextechnical.com/images/data-mining.jpg"
-				style="width: 971px; height: 200px">
-		</div>
-		<div class=row>
-
-			<nav class="navbar navbar-default">
-			<div class="container-fluid">
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed"
-						data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-						aria-expanded="false">
-						<span class="sr-only">Toggle navigation</span> <span
-							class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="http://localhost:8080/DataMiningCGE/">Inicio</a>
-				</div>
-
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse"
-					id="bs-example-navbar-collapse-1">
-
-					</ul>
-					<form class="navbar-form navbar-right">
-						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Search">
-						</div>
-					</form>
-
-				</div>
-				<!-- /.navbar-collapse -->
-			</div>
-			<!-- /.container-fluid --> </nav>
-		</div>
-		<div class=row>
-			<div class=col-lg-3>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h5 style="text-align: center">
-							<b>Consultas Avan√ßadas</b>
-						</h5>
-					</div>
-					<!-- /.panel-heading -->
-					<div class="panel-body">
-						<div class="list-group text-center">
-
-							<a class="list-group-item" href="/DataMiningCGE/mediaSalarial">M√©dia
-								Salarial </a>
-						</div>
-
-
-
-						<!-- -------------------------------------------------Feature 2 ---------------------------------------------- -->
-						<div class="list-group text-center">
-
-							<a class="list-group-item"
-								href="/DataMiningCGE/piramideHierarquica">N√≠veis
-								Hier√°rquicos </a>
-						</div>
-
-						<!-- -------------------------------------------------Feature 4 ---------------------------------------------- -->
-						<div class="list-group text-center">
-
-							<a class="list-group-item"
-								href="/DataMiningCGE/dispersaoServidores">Dispers√£o dos
-								Sal√°rios Individuais</a>
-						</div>
-
-
-
-						<!-- -------------------------------------------------Feature 5 ---------------------------------------------- -->
-						<div class="list-group text-center">
-
-							<a class="list-group-item"
-								href="/DataMiningCGE/mediaSalarialQntServidores">Media
-								Salarial e Quantidade de Servidores </a>
-						</div>
-						<!-- -------------------------------------------------Feature 6---------------------------------------------- -->
-						<div class="list-group text-center">
-
-							<a class="list-group-item" href="/DataMiningCGE/mapaDemografico">Mapa
-								Demogr√°fico </a>
-						</div>
-
-						<!-- -------------------------------------------------Feature 7---------------------------------------------- -->
-						<div class="list-group text-center">
-
-							<a class="list-group-item" href="/DataMiningCGE/faixa">Faixa
-								Et√°ria dos Servidores </a>
-						</div>
-<!-- -------------------------------------------------Feature 8---------------------------------------------- -->					
-						<div class="list-group text-center">
-
-							<a class="list-group-item"
-								href="/DataMiningCGE/porcentagemGasto">Distribui√ß√£o dos Gasto Mensais  </a>
-						</div>
-
-					</div>
-				</div>
-			</div>
-
-			<div class=col-lg-9>
-
-				<!-- Large modal -->
-<div class="modal fade" id="myModal">
+<div class="main">
+  <div class="header">
+    <div class="header_resize">
+      <div class="logo">
+        <h1><a href="/DataMiningCGE/">AuditoFacil<small>Um software para ajudar nas atividades de auditoria</small></a></h1>
+      </div>
+      <div class="searchform">
+        <form id="formsearch" name="formsearch" method="post" action="#">
+          <span>
+          <input name="editbox_search" class="editbox_search" id="editbox_search" maxlength="80" value="Search our ste:" type="text" />
+          </span>
+          <input name="button_search" src="resources/images/search.gif" class="button_search" type="image" />
+        </form>
+      </div>
+      <div class="clr"></div>
+      <div class="menu_nav" style="border-radius: 10px;">
+        <ul>
+          <li class="active"><a href="/DataMiningCGE/"><span>Pagina Inicial</span></a></li>
+          <li><a href="#"><span>Suporte</span></a></li>
+          <li><a href="#"><span>Sobre</span></a></li>
+          <li><a href="#"><span>Contato</span></a></li>
+        </ul>
+      </div>
+      <div class="clr"></div>
+      
+  </div>
+  <div class="content">
+    <div class="content_resize">
+    	<div class="sidebar">
+        <div class="gadget">
+          <h2 class="star"> Consultas</h2>
+          <div class="clr"></div>
+          <ul class="sb_menu">
+            <li><a href="dispersaoServidores">Dispers„o dos Salarios</a></li>
+            <li><a href="/DataMiningCGE/mediaSalarial">MÈdia Salarial</a></li>
+            <li><a href="/DataMiningCGE/faixa">Faixa Et·ria</a></li>
+            <li><a href="/DataMiningCGE/piramideHierarquica">Pir‚mide Hier·rquica</a></li>
+            <li><a href="/DataMiningCGE/porcentagemGasto">DistribuiÁ„o dos Gastos</a></li>
+            <li><a href="/DataMiningCGE/mapaDemografico">Mapa Demogr·fico</a></li>
+          </ul>
+        </div>
+        
+      </div>
+    
+    <div class="mainbar">
+    
+      <div class="modal fade" id="myModal">
 	
 	<div class="modal-dialog">
 		
 		<div class="modal-content">
 			
-			
+			<form id="exportarModal" action="download" method="post">
+						<input id="escondido1" type="hidden" name="entrada1" >
+							<input id="escondido2" type="hidden" name="entrada2" >
+							<input id="escondido3" type="hidden" name="entrada3" >
+							<input id="escondido4" type="hidden" name="entrada4" >
+							<input id="escondido5" type="hidden" name="entrada5" >
+							<input id="escondido6" type="hidden" name="entrada6" >
+							<input id="escondido7" type="hidden" name="entrada7" >
+							<input id="escondido8" type="hidden" name="entrada8" >
+							<input id="escondido9" type="hidden" name="entrada9" >
+							<input id="escondido10" type="hidden" name="referencia" >
+							<input id="escondido11" type="hidden" name="tipoSalario" >
+							<input id="escondido12" type="hidden" name="qntFiltros" >
+							<input id="escondido13" type="hidden" name="funcionalidade" value="detalheMedia" >
+						<input type="submit" value="Exportar">	
+						</form>
 				<div class="movimentos">
- 				 <center><h4>Hist√≥rico de Movimentos</h4></center>
+ 				 <center><h4>HistÛrico de Movimentos</h4></center>
   						<table class="table">
     						<thead style="overflow-y: auto">
       							<tr>
-        							<th>Descri√ß√£o do Movimento</th>
+        							<th>DescriÁ„o do Movimento</th>
         							<th>Valor (Reais)</th>
         							<th>Quantidade de Servidores</th>
         							<th>Tipo</th>
@@ -189,10 +150,10 @@
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<h4 style="text-align: center">
-							<b>Relat√≥rio sobre a M√©dia Salarial </b>
+							<b>Relatorio sobre a Media Salarial </b>
 						</h4>
 						<hr>
-						<h5 style="text-align: center"></h5>
+						<h5 style="text-align: center">Nesta funcionalidade È mostrado um gr·fico linha com a mÈdia salarial de acordo com os filtros definidos.</h5>
 						<hr>
 
 
@@ -211,7 +172,7 @@
 									<input type="radio" id="cargo" value="cargo" name="tipo">Cargo
 									<input type="radio" id="categoria" value="categoria"
 										name="tipo">Categoria <input type="radio" id="orgao"
-										value="orgao" name="tipo">Org√£o
+										value="orgao" name="tipo">Org„o
 								</form>
 
 							</div>
@@ -379,7 +340,7 @@
 									name="tipo_de_salario">
 
 									<option id="bruto" value="bruto">bruto</option>
-									<option id="liquido" value="liquido">l√≠quido</option>
+									<option id="liquido" value="liquido">lÌquido</option>
 								</select>
 
 							</div>
@@ -391,7 +352,7 @@
 
 				
 				
-					<form id="exportar" action="download" method="POST">
+					<form id="exportar" action="download" method="post">
 							<input id="escondido1" type="hidden" name="entrada1" >
 							<input id="escondido2" type="hidden" name="entrada2" >
 							<input id="escondido3" type="hidden" name="entrada3" >
@@ -426,13 +387,26 @@
 				
 				</div>
 			</div>
-		</div>
-	</div>
+        
+       
+        
+      </div>
+      
+      <div class="clr"></div>
+    </div>
+  </div>
+  
+    
+  <div class="footer">
+    <div class="footer_resize">
+      <p class="lf">Copyright &copy; <a href="http://www.ufpi.br/">Universidade Federal do PiauÌ - UFPI</a>. All Rights Reserved</p>
+      <p class="rf">Design by <a target="_blank" href="https://github.com/Irvayne">Irvayne Matheus de Sousa Ibiapina</a></p>
+      <div style="clear:both;"></div>
+    </div>
+  </div>
+</div>
 
-
-
-
-	<script language="JavaScript">
+<script language="JavaScript">
 		$(document).ready(function() {
 			
 			var datas = {};
@@ -828,7 +802,7 @@
 							
 							
 							var element = document.getElementById('name_input1');
-							element.innerHTML = '<b>√ìrg√£o</b>';
+							element.innerHTML = '<b>”rg„o</b>';
 							
 							
 							
@@ -840,7 +814,7 @@
 						    document.getElementById('select1').appendChild(x);
 							}
 						    element = document.getElementById('name_input4');
-							element.innerHTML = '<b>√ìrg√£o</b>';
+							element.innerHTML = '<b>”rg„o</b>';
 							
 														
 							for(i = 0; i< data.length; i++){		
@@ -851,7 +825,7 @@
 						    document.getElementById('select4').appendChild(x);
 							}
 						    element = document.getElementById('name_input7');
-							element.innerHTML = '<b>√ìrg√£o</b>';
+							element.innerHTML = '<b>”rg„o</b>';
 							
 							
 							
@@ -1238,8 +1212,10 @@
 								                                
 								                                if(this.x < 9){
 								                                data1['referencia'] = $('#data_selecionada option:selected').attr('value') + "0"+(this.x+1);
+								                                document.getElementById("escondido10").value = data1['referencia'];
 								                        		 }else{
 								                        	 data1['referencia'] = $('#data_selecionada option:selected').attr('value') + (this.x+1);
+								                        	 document.getElementById("escondido10").value = data1['referencia'];
 											                   
 								                       			  }
 								                                $('#myModal').modal('toggle');
@@ -1285,10 +1261,10 @@
 										$('#grafico-linha').show();
 
 										var title = {
-											text : 'M√©dia Salarial'
+											text : 'MÈdia Salarial'
 										};
 										var subtitle = {
-											text : 'M√©dia Salarial dos Servidores P√∫blicos Estaduais'
+											text : 'MÈdia Salarial dos Servidores P˙blicos Estaduais'
 										};
 										var xAxis = {
 											categories : [ 'Janeiro',
@@ -1303,7 +1279,7 @@
 										};
 										var yAxis = {
 											title : {
-												text : 'Sal√°rio (Reais)'
+												text : 'Sal·rio (Reais)'
 											},
 											plotLines : [ {
 												value : 0,
@@ -1345,5 +1321,6 @@
 
 						})
 	</script>
+
 </body>
 </html>

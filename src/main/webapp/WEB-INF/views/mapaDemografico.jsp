@@ -1,10 +1,42 @@
-<!DOCTYPE HTML>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>Highmaps Example</title>
-        
-        <!-- Latest compiled and minified CSS -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Cloudset</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+
+<script type="text/javascript" src="resources/js/jquery-1.4.2.min.js"></script>
+
+
+<link rel="stylesheet"
+	href="https://cdn.rawgit.com/LeaVerou/awesomplete/gh-pages/awesomplete.css">
+<script
+	src="https://cdn.rawgit.com/LeaVerou/awesomplete/gh-pages/awesomplete.min.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+
+
+
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous"></script>
+	
+	<link href="resources/css/style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="resources/css/coin-slider.css" />
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -23,6 +55,7 @@
 	crossorigin="anonymous"></script>
 
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+     
         <style type="text/css">
             #container {
                 height: 500px; 
@@ -35,7 +68,9 @@
                 text-align: center;
                 color: gray;
             }
+        
         </style>
+          
         <script type="text/javascript">
             $(function () {
 
@@ -109,126 +144,78 @@
                 });
             });
         </script>
-    </head>
-    <body>
-        <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+
+
+
+</head>
+<body>
+
+<script src="https://code.highcharts.com/maps/highmaps.js"></script>
         <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
         <script src="https://code.highcharts.com/mapdata/countries/br/br-all.js"></script>
-<div class=col-lg-9
-		style="width: 971px; height: 2500px; margin-left: 150px; background: #F6F6F6">
+        <script type="text/javascript" src="resources/js/droid_sans_400-droid_sans_700.font.js"></script>
+        <script type="text/javascript" src="resources/js/cufon-yui.js"></script>
+        <script type="text/javascript" src="resources/js/script.js"></script>
+<script type="text/javascript" src="resources/js/coin-slider.min.js"></script>
+<link href="resources/css/style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="resources/css/coin-slider.css" />
 
-
-
-		<div class=row style="width: 971px; height: 200px">
-			<img src="http://www.domextechnical.com/images/data-mining.jpg"
-				style="width: 971px; height: 200px">
-		</div>
-		<div class=row>
-
-			<nav class="navbar navbar-default">
-			<div class="container-fluid">
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed"
-						data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-						aria-expanded="false">
-						<span class="sr-only">Toggle navigation</span> <span
-							class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="/DataMiningCGE/">Inicio</a>
-				</div>
-
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse"
-					id="bs-example-navbar-collapse-1">
-
-					</ul>
-					<form class="navbar-form navbar-right">
-						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Search">
-						</div>
-					</form>
-
-				</div>
-				<!-- /.navbar-collapse -->
-			</div>
-			<!-- /.container-fluid --> </nav>
-		</div>
-		<div class=row>
-			<div class=col-lg-3>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h5 style="text-align: center">
-							<b>Consultas Avançadas</b>
-						</h5>
-					</div>
-					<!-- /.panel-heading -->
-					<div class="panel-body">
-						<div class="list-group text-center">
-
-							<a class="list-group-item"
-								href="/DataMiningCGE/mediaSalarial">Média Salarial </a>
-						</div>
-						
-						
-						
-	<!-- -------------------------------------------------Feature 2 ---------------------------------------------- -->					
-						<div class="list-group text-center">
-
-							<a class="list-group-item"
-								href="/DataMiningCGE/piramideHierarquica">Níveis Hierárquicos  </a>
-						</div>
-
-						
-	<!-- -------------------------------------------------Feature 4 ---------------------------------------------- -->					
-						<div class="list-group text-center">
-
-							<a class="list-group-item"
-								href="/DataMiningCGE/dispersaoServidores">Dispersão dos Salários Individuais</a>
-						</div>
-						
-											
-
-	<!-- -------------------------------------------------Feature 5 ---------------------------------------------- -->					
-						<div class="list-group text-center">
-
-							<a class="list-group-item"
-								href="/DataMiningCGE/mediaSalarialQntServidores">Media Salarial e Quantidade de Servidores  </a>
-						</div>
-			<!-- -------------------------------------------------Feature 6---------------------------------------------- -->					
-						<div class="list-group text-center">
-
-							<a class="list-group-item"
-								href="/DataMiningCGE/mapaDemografico">Mapa Demográfico  </a>
-						</div>
-									
-			<!-- -------------------------------------------------Feature 7---------------------------------------------- -->					
-						<div class="list-group text-center">
-
-							<a class="list-group-item"
-								href="/DataMiningCGE/faixa">Faixa Etária dos Servidores  </a>
-						</div>
-			<!-- -------------------------------------------------Feature 8---------------------------------------------- -->					
-						<div class="list-group text-center">
-
-							<a class="list-group-item"
-								href="/DataMiningCGE/porcentagemGasto">Distribuição dos Gasto Mensais  </a>
-						</div>							
-
-					</div>
-				</div>
-			</div>
-
-			<div class=col-lg-9>
-				<div class="panel panel-default">
+<div class="main">
+  <div class="header">
+    <div class="header_resize">
+      <div class="logo">
+        <h1><a href="/DataMiningCGE/">AuditoFacil<small>Um software para ajudar nas atividades de auditoria</small></a></h1>
+      </div>
+      <div class="searchform">
+        <form id="formsearch" name="formsearch" method="post" action="#">
+          <span>
+          <input name="editbox_search" class="editbox_search" id="editbox_search" maxlength="80" value="Search our ste:" type="text" />
+          </span>
+          <input name="button_search" src="resources/images/search.gif" class="button_search" type="image" />
+        </form>
+      </div>
+      <div class="clr"></div>
+      <div class="menu_nav" style="border-radius: 10px;">
+        <ul>
+          <li class="active"><a href="/DataMiningCGE/"><span>Pagina Inicial</span></a></li>
+          <li><a href="#"><span>Suporte</span></a></li>
+          <li><a href="#"><span>Sobre</span></a></li>
+          <li><a href="#"><span>Contato</span></a></li>
+        </ul>
+      </div>
+      <div class="clr"></div>
+      
+  </div>
+  <div class="content">
+    <div class="content_resize">
+    	<div class="sidebar">
+        <div class="gadget">
+          <h2 class="star"> Consultas</h2>
+          <div class="clr"></div>
+          <ul class="sb_menu">
+            <li><a href="dispersaoServidores">Dispersão dos Salarios</a></li>
+            <li><a href="/DataMiningCGE/mediaSalarial">Média Salarial</a></li>
+            <li><a href="/DataMiningCGE/faixa">Faixa Etária</a></li>
+            <li><a href="/DataMiningCGE/piramideHierarquica">Pirâmide Hierárquica</a></li>
+            <li><a href="/DataMiningCGE/porcentagemGasto">Distribuição dos Gastos</a></li>
+            <li><a href="/DataMiningCGE/mapaDemografico">Mapa Demográfico</a></li>
+          </ul>
+        </div>
+        
+      </div>
+    
+    
+      <div class="mainbar">
+       
+       	<div class="panel panel-default">
 					<div class="panel-body">
 						<h4 style="text-align: center">
-							<b>Mapa Demográfico </b>
+							<b>Mapa Demografico </b>
 						</h4>
 						<hr>
 						<h5 style="text-align: center">
-							
+							Nesta consulta é possível identificar quantos servidores pertencentes ao Piauí estão alocados em cada estado do Brasil.
+							 Para isso, basta selecionar um estado.
 							 
 						</h5>
 						<hr>
@@ -242,11 +229,23 @@
 				
 				
 			</div>
-		</div>
-	</div>
-	</div>
+       
+        
+      </div>
+      
+      <div class="clr"></div>
+    </div>
+  </div>
+  
+    
+  <div class="footer">
+    <div class="footer_resize">
+      <p class="lf">Copyright &copy; <a href="http://www.ufpi.br/">Universidade Federal do Piauí - UFPI</a>. All Rights Reserved</p>
+      <p class="rf">Design by <a target="_blank" href="https://github.com/Irvayne">Irvayne Matheus de Sousa Ibiapina</a></p>
+      <div style="clear:both;"></div>
+    </div>
+  </div>
+</div>
 
-
-    </body>
+</body>
 </html>
-
