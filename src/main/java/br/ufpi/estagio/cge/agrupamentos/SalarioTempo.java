@@ -2,6 +2,7 @@ package br.ufpi.estagio.cge.agrupamentos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import br.ufpi.estagio.cge.dao.CargoDAO;
 import br.ufpi.estagio.cge.grafico.Dados;
@@ -13,21 +14,46 @@ import weka.core.Instances;
 
 public class SalarioTempo extends GenericKMeans{	
 
-	public static void main(String[] args) throws Exception
+	public static void main(String[] args) {
+		String cargo, tipoSalario, anoMes;
+
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Digite o cargo");
+		cargo = scan.nextLine();
+
+		Scanner scanTipo = new Scanner(System.in);
+		System.out.println("Digite o tipo de salario");
+		tipoSalario = scanTipo.nextLine();
+
+		Scanner scanAno = new Scanner(System.in);
+		System.out.println("Digite o ano");
+		anoMes = scanAno.nextLine();
+		
+		try {
+			executa(cargo, tipoSalario, anoMes);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public static void executa(String cargo, String tipoSalario, String anoMes) throws Exception
 	{
 		Dados dados = new Dados();
-		dados.setInput1("medico");
+		dados.setInput1(cargo);
 		dados.setInput2("");
 		dados.setInput3("");
-		dados.setTipoSalario("bruto");
-		dados.setReferencia("201604");
+		dados.setTipoSalario(tipoSalario);
+		dados.setReferencia(anoMes);
 		List<GraficoDispersao> grafico = CargoDAO.graficoDispersaoSalarioPorTempo(dados);
 		List<Double> tempoCargo = new ArrayList<Double>();
 		List<Double> salario = new ArrayList<Double>();
+		List<String> nomes = new ArrayList<String>();
 
 		for (GraficoDispersao aux: grafico) {
 			tempoCargo.add(aux.getData().get(0).get(0));
 			salario.add(aux.getData().get(0).get(1));
+			nomes.add(aux.getName());
 		}
 
 		Instances instancesTempoCargo = iniciaInstancias(tempoCargo, "Tempo Cargo");
@@ -89,8 +115,9 @@ public class SalarioTempo extends GenericKMeans{
 
 		for (int i : instanciasIntersecao) {
 			System.out.print("Instancia "+i+" Valores -> ");
-			System.out.print("Tempo no cargo "+instancesTempoCargo.get(i)+", ");
-			System.out.print("Salario "+instancesSalario.get(i));
+			System.out.print("Nome: "+nomes.get(i));
+			System.out.print("Tempo no cargo: "+instancesTempoCargo.get(i)+", ");
+			System.out.print("Salario: "+instancesSalario.get(i));
 			System.out.println();
 		}
 
